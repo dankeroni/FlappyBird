@@ -1,16 +1,17 @@
 PImage[] sprites = new PImage[3];
-static float g = 0.4;
-float v = 0, birdY;
+static float gBird = 0.4;
+float vBird = 0, yBird;
+int animationState = 0, animationStartFrame;
 
 void setup() {
   size(700, 800);
-  birdY = height*0.5;
+  yBird = height*0.5;
   rectMode(CENTER);
   imageMode(CENTER);
   PImage sheet = loadImage("spritesheet.png");
   int spriteWidth = sheet.width/3;
   for (int i = 0; i < 3; i++) {
-    sprites[i] = sheet.get(i*spriteWidth, 0, spriteWidth, sheet.height);
+    sprites[2-i] = sheet.get(i*spriteWidth, 0, spriteWidth, sheet.height);
   }
 }
 
@@ -19,17 +20,27 @@ void draw() {
   text(round(frameRate), 10, 10);
 
   pushMatrix();
-  v += g;
-  birdY += v;
-  translate(width*0.5, birdY);
-  image(sprites[0], 0, 0);
+  vBird += gBird;
+  yBird += vBird;
+  translate(width*0.5, yBird);
+  image(sprites[animationState], 0, 0);
+
+  if (animationState > 0 && (frameCount-animationStartFrame) % 13 == 0) {
+    if (animationState == 2)
+      animationState = 0;
+    else
+      animationState++;
+  }
+
   popMatrix();
 }
 
 void mouseClicked() {
-  v = -10.5;
+  vBird = -10.5;
+  animationState = 1;
+  animationStartFrame = frameCount;
 }
 
 void keyPressed() {
-  v = -10.5;
+  mouseClicked();
 }
