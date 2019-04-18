@@ -23,6 +23,7 @@ void draw() {
   vBird += gBird;
   yBird += vBird;
   translate(width*0.5, yBird);
+  rotate(radians(vBird*1.5));
   image(sprites[animationState], 0, 0);
 
   if (animationState > 0 && (frameCount-animationStartFrame) % 13 == 0) {
