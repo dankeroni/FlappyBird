@@ -1,11 +1,13 @@
 PImage[] sprites = new PImage[3];
 static float gBird = 0.4;
-float vBird = 0, yBird;
+float vBird = 0, yBird, birdLeft, birdRight, birdTop, birdBottom;
 int animationState = 0, animationFrame = 27;
 
 void setup() {
   size(700, 800);
   yBird = height*0.5;
+  birdLeft = width*0.5-32;
+  birdRight = width*0.5+32;
   rectMode(CENTER);
   imageMode(CENTER);
 
@@ -24,6 +26,25 @@ void draw() {
   // Predraw calculations (collision detection, animationState)
   vBird += gBird;
   yBird += vBird;
+  birdTop = yBird - 32;
+  birdBottom = yBird + 32;
+
+  line(birdLeft, birdTop, birdRight, birdTop);
+  line(birdLeft, birdBottom, birdRight, birdBottom);
+  line(birdLeft, birdTop, birdLeft, birdBottom);
+  line(birdRight, birdTop, birdRight, birdBottom);
+
+  if (birdTop <= 0) {
+    vBird = 0;
+    yBird = 32;
+  }
+
+  if (birdBottom >= height) {
+    gBird = 0;
+    vBird = 0;
+    yBird = height - 32;
+  }
+
   if (animationFrame < 27)
     animationState = animationFrame++/13;
 
