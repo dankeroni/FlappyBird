@@ -1,5 +1,4 @@
 Bird bird;
-PImage[] sprites = new PImage[3];
 
 void setup() {
   size(700, 800);
@@ -7,12 +6,6 @@ void setup() {
   rectMode(CENTER);
   imageMode(CENTER);
 
-  // Sprites loading
-  PImage sheet = loadImage("spritesheet.png");
-  int spriteWidth = sheet.width/3;
-  for (int i = 0; i < 3; i++) {
-    sprites[i] = sheet.get(i*spriteWidth, 0, spriteWidth, sheet.height);
-  }
 }
 
 void draw() {
@@ -52,10 +45,22 @@ void keyPressed() {
 }
 
 class Bird {
+  PImage[] sprites = new PImage[3];
   final float left = width*0.5 - 32, right = width*0.5 + 32;
-  private float y = height*0.5;
-  float v = 0, a = 0.4, top = y - 32, bottom = y + 32;
-  int animationState = 0, animationFrame = 27;
+  private float y;
+  float v = 0, a = 0.4, top, bottom;
+  int animationState = 2, animationFrame = 27;
+
+  Bird () {
+    setY(height*0.5);
+
+    // Sprites loading
+    PImage sheet = loadImage("spritesheet.png");
+    int spriteWidth = sheet.width/3;
+    for (int i = 0; i < 3; i++) {
+      sprites[i] = sheet.get(i*spriteWidth, 0, spriteWidth, sheet.height);
+    }
+  }
 
   void setY(float y) {
     this.y = y;
@@ -66,12 +71,11 @@ class Bird {
   void update() {
     v += a;
     setY(y+v);
+    if (animationFrame < 27)
+      animationState = animationFrame++/13;
   }
 
   void draw() {
-    if (animationFrame < 27)
-      animationState = animationFrame++/13;
-
     pushMatrix();
     translate(width*0.5, y);
     rotate(radians(v*1.5));
