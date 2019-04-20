@@ -1,4 +1,7 @@
-Bird bird;
+import java.util.*;
+
+private Bird bird;
+private Queue<Pipe> pipes = new LinkedList<Pipe>();
 
 void setup() {
   size(700, 800);
@@ -13,6 +16,13 @@ void draw() {
 
   // Predraw calculations (movement, collision detection, animation)
   bird.update();
+  if (frameCount % 75 == 2) {
+    if (pipes.size() >= 4)
+      pipes.poll();
+    pipes.offer(new Pipe(this));
+  }
+  for(Pipe pipe : pipes)
+    pipe.update();
 
   if (bird.top() <= 0) {
     bird.hitCeiling();
@@ -31,6 +41,8 @@ void draw() {
 
 
   bird.draw();
+  for(Pipe pipe : pipes)
+    pipe.draw();
 }
 
 void mouseClicked() {
@@ -40,4 +52,3 @@ void mouseClicked() {
 void keyPressed() {
   bird.flap();
 }
-
