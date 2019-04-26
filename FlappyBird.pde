@@ -24,25 +24,28 @@ void draw() {
   update(1);
 
   if (bird.top() <= 0) {
-    update(-bird.top()/bird.v());
+    try {
+      update(-bird.top()/bird.v());
+    } catch (ArithmeticException e) {}
     bird.hitCeiling();
   }
 
   if (bird.bottom() >= height) {
     //Stop game here
-    update((height-bird.bottom())/bird.v());
+    try {
+      update((height-bird.bottom())/bird.v());
+    } catch (ArithmeticException e) {}
     noLoop();
   }
+
+  for(Pipe pipe : pipes)
+    pipe.draw();
+  bird.draw();
 
   line(bird.left, bird.top(), bird.right, bird.top());
   line(bird.left, bird.bottom(), bird.right, bird.bottom());
   line(bird.left, bird.top(), bird.left, bird.bottom());
   line(bird.right, bird.top(), bird.right, bird.bottom());
-
-
-  for(Pipe pipe : pipes)
-    pipe.draw();
-  bird.draw();
 }
 
 void update(float timestep) {
