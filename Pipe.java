@@ -15,9 +15,9 @@ public class Pipe {
         pipe.translate(x, 0.5f*p.height);
     }
 
-    public void update() {
-        setX(x+v);
-        pipe.translate(v, 0);
+    public void update(float timestep) {
+        setX(x+v*timestep);
+        pipe.translate(v*timestep, 0);
     }
 
     private void setX(float x) {

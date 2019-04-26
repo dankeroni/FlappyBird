@@ -21,9 +21,9 @@ public class Bird {
         }
     }
 
-    public void update() {
-        v += a;
-        setY(y+v);
+    public void update(float timestep) {
+        v += a*timestep;
+        setY(y+v*timestep);
         // Maybe we should calculate this from velocity
         // 0-12 => 0, 13-25 => 1, 26 => 2
         if (animationFrame < 27)
@@ -51,15 +51,8 @@ public class Bird {
         animationFrame = 0;
     }
 
-    // Stick to floor, no need to set velocity to 0 as game stops here
-    public void hitFloor() {
-        setY(p.height - 32);
-    }
-
-    // Stick to ceiling and set velocity to 0
     public void hitCeiling() {
         v = 0;
-        setY(32);
     }
 
     public float bottom() {
@@ -68,5 +61,9 @@ public class Bird {
 
     public float top() {
         return top;
+    }
+
+    public float v() {
+        return v;
     }
 }

@@ -16,23 +16,21 @@ void draw() {
   text(round(frameRate), 10, 10);
 
   // Predraw calculations (movement, collision detection, animation)
-  // TODO: Use correct timestep on collision
-  bird.update();
   if (frameCount % 75 == 2) {
     if (pipes.size() >= 4)
       pipes.poll();
     pipes.offer(new Pipe(this));
   }
-  for(Pipe pipe : pipes)
-    pipe.update();
+  update(1);
 
   if (bird.top() <= 0) {
+    update(-bird.top()/bird.v());
     bird.hitCeiling();
   }
 
   if (bird.bottom() >= height) {
     //Stop game here
-    bird.hitFloor();
+    update((height-bird.bottom())/bird.v());
     noLoop();
   }
 
@@ -45,6 +43,12 @@ void draw() {
   for(Pipe pipe : pipes)
     pipe.draw();
   bird.draw();
+}
+
+void update(float timestep) {
+  bird.update(timestep);
+  for(Pipe pipe : pipes)
+    pipe.update(timestep);
 }
 
 void mouseClicked() {
