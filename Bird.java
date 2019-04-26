@@ -1,13 +1,13 @@
 import processing.core.*;
 
 public class Bird {
-    private PApplet p;
+    private FlappyBird p;
     private PImage[] sprites = new PImage[3];
     private float y, top, bottom, v = 0, a = 0.5f;
     private int animationState = 2, animationFrame = 27;
     public final float left, right;
 
-    public Bird (PApplet p) {
+    public Bird (FlappyBird p) {
         this.p = p;
         left = p.width*0.5f - 32;
         right = p.width*0.5f + 32;
@@ -56,7 +56,7 @@ public class Bird {
         setY(p.height - 32);
     }
 
-    // Stick to ceiling and set set velocity to 0
+    // Stick to ceiling and set velocity to 0
     public void hitCeiling() {
         v = 0;
         setY(32);

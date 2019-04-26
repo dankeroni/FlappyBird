@@ -1,12 +1,13 @@
 import processing.core.*;
 
 public class Pipe {
-    private PApplet p;
+    private FlappyBird p;
     private final float yMid, v = -6f;
     private float x;
 
-    public Pipe (PApplet p) {
+    public Pipe (FlappyBird p) {
         this.p = p;
+        // Start slightly off screen, pipe appears smoothly
         x = p.width + 100;
         yMid = p.random(200, 600);
     }
