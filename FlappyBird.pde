@@ -12,9 +12,11 @@ void setup() {
 
 void draw() {
   background(127);
+  fill(0);
   text(round(frameRate), 10, 10);
 
   // Predraw calculations (movement, collision detection, animation)
+  // TODO: Use correct timestep on collision
   bird.update();
   if (frameCount % 75 == 2) {
     if (pipes.size() >= 4)
@@ -40,9 +42,9 @@ void draw() {
   line(bird.right, bird.top(), bird.right, bird.bottom());
 
 
-  bird.draw();
   for(Pipe pipe : pipes)
     pipe.draw();
+  bird.draw();
 }
 
 void mouseClicked() {
