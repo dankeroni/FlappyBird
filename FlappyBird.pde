@@ -1,16 +1,17 @@
 import java.util.*;
 
 private Bird bird;
-private LinkedList<Pipe> pipes = new LinkedList<Pipe>();
-private int score = 0;
+private LinkedList<Pipe> pipes;
+private int score;
+private boolean running = false;
 
 void setup() {
   size(700, 800);
-  bird = new Bird(this);
   rectMode(CENTER);
   imageMode(CENTER);
   shapeMode(CENTER);
   textAlign(CENTER, CENTER);
+  reset();
 }
 
 void draw() {
@@ -33,6 +34,7 @@ void draw() {
   if (bird.bottom() >= height) {
     //Stop game here
     update((bird.v()-sqrt(sq(bird.v())+2*bird.a*(bird.bottom()-height)))/bird.a);
+    running = false;
     noLoop();
   }
 
@@ -66,10 +68,23 @@ void update(float timestep) {
     pipe.update(timestep);
 }
 
+void reset() {
+  if (running) return;
+  score = 0;
+  bird = new Bird(this);
+  pipes = new LinkedList<Pipe>();
+  frameCount = 0;
+  running = true;
+  loop();
+}
+
 void mouseClicked() {
-  bird.flap();
+  keyPressed();
 }
 
 void keyPressed() {
-  bird.flap();
+  if (running)
+    bird.flap();
+  else
+    reset();
 }
