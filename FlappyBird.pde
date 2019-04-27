@@ -12,7 +12,7 @@ void setup() {
 }
 
 void draw() {
-  background(127);
+  background(0xff4cbcfc);
 
   // Predraw calculations (movement, collision detection, animation)
   if (frameCount % 75 == 2) {
