@@ -5,7 +5,8 @@ public class Bird {
     private PImage[] sprites = new PImage[3];
     private float y, top, bottom, v = 0;
     private int animationState = 2, animationFrame = 27;
-    public final float left, right, a = 0.5f;
+    private boolean alive = true;
+    public final float left, right, a = 0.6f;
 
     public Bird (FlappyBird p) {
         this.p = p;
@@ -55,6 +56,10 @@ public class Bird {
         v = 0;
     }
 
+    public void hitPipe() {
+        alive = false;
+    }
+
     public float bottom() {
         return bottom;
     }
@@ -65,5 +70,9 @@ public class Bird {
 
     public float v() {
         return v;
+    }
+    
+    public boolean alive() {
+        return alive;
     }
 }

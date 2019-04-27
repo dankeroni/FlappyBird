@@ -3,8 +3,8 @@ import processing.core.*;
 public class Pipe {
     private FlappyBird p;
     private PShape pipe;
-    private final float yMid, v = -6f;
-    private float x, left, right;
+    private final float yMid;
+    private float x, left, right, v = -6f;
     public final float top, bottom;
 
     public Pipe (FlappyBird p) {
@@ -44,6 +44,14 @@ public class Pipe {
 
     public void draw() {
         p.shape(pipe);
+    }
+
+    public void stop() {
+        v = 0;
+    }
+
+    public float v() {
+        return v;
     }
 
     public float left() {
