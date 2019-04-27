@@ -8,12 +8,11 @@ void setup() {
   bird = new Bird(this);
   rectMode(CENTER);
   imageMode(CENTER);
+  shapeMode(CENTER);
 }
 
 void draw() {
   background(127);
-  fill(0);
-  text(round(frameRate), 10, 10);
 
   // Predraw calculations (movement, collision detection, animation)
   if (frameCount % 75 == 2) {
@@ -24,17 +23,13 @@ void draw() {
   update(1);
 
   if (bird.top() <= 0) {
-    try {
-      update(-bird.top()/bird.v());
-    } catch (ArithmeticException e) {}
+    update((bird.v()+sqrt(sq(bird.v())+2*bird.a*bird.top()))/bird.a);
     bird.hitCeiling();
   }
 
   if (bird.bottom() >= height) {
     //Stop game here
-    try {
-      update((height-bird.bottom())/bird.v());
-    } catch (ArithmeticException e) {}
+    update((bird.v()-sqrt(sq(bird.v())+2*bird.a*(bird.bottom()-height)))/bird.a);
     noLoop();
   }
 
@@ -46,6 +41,8 @@ void draw() {
   line(bird.left, bird.bottom(), bird.right, bird.bottom());
   line(bird.left, bird.top(), bird.left, bird.bottom());
   line(bird.right, bird.top(), bird.right, bird.bottom());
+  fill(0);
+  text(round(frameRate), 10, 10);
 }
 
 void update(float timestep) {

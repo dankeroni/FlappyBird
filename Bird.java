@@ -3,9 +3,9 @@ import processing.core.*;
 public class Bird {
     private FlappyBird p;
     private PImage[] sprites = new PImage[3];
-    private float y, top, bottom, v = 0, a = 0.5f;
+    private float y, top, bottom, v = 0;
     private int animationState = 2, animationFrame = 27;
-    public final float left, right;
+    public final float left, right, a = 0.5f;
 
     public Bird (FlappyBird p) {
         this.p = p;
