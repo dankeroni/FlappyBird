@@ -38,8 +38,8 @@ public class Pipe {
 
     private void setX(float x) {
         this.x = x;
-        left = x - 32;
-        right = x + 32;
+        left = x - 35;
+        right = x + 35;
     }
 
     public void draw() {

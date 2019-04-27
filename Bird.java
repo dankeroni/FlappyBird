@@ -48,8 +48,10 @@ public class Bird {
 
     // Start animation and moving upward
     public void flap() {
-        v = -10.5f;
-        animationFrame = 0;
+        if (alive) {
+            v = -10.5f;
+            animationFrame = 0;
+        }
     }
 
     public void hitCeiling() {
@@ -71,7 +73,7 @@ public class Bird {
     public float v() {
         return v;
     }
-    
+
     public boolean alive() {
         return alive;
     }

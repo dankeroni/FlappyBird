@@ -38,6 +38,14 @@ void draw() {
 
   Pipe p = pipes.getLast();
   if(bird.alive()&&!(bird.left>p.right()||bird.right<p.left()||bird.top()>p.bottom&&bird.bottom()<p.top)) {
+    update(max(new float[]{
+          //Bird hits left side of pipe
+          (bird.right-p.left())/p.v(),
+          //Bird hits top side of pipe
+          -abs((bird.v()-sqrt(sq(bird.v())+2*bird.a*(bird.bottom()-p.top)))/bird.a),
+          //Bird hits bottom side of pipe
+          -abs((bird.v()+sqrt(sq(bird.v())+2*bird.a*(bird.top()-p.bottom)))/bird.a)
+          }));
     bird.hitPipe();
     for(Pipe pipe : pipes)
       pipe.stop();
@@ -47,10 +55,6 @@ void draw() {
     pipe.draw();
   bird.draw();
 
-  line(bird.left, bird.top(), bird.right, bird.top());
-  line(bird.left, bird.bottom(), bird.right, bird.bottom());
-  line(bird.left, bird.top(), bird.left, bird.bottom());
-  line(bird.right, bird.top(), bird.right, bird.bottom());
   fill(0);
   text(round(frameRate), 10, 6);
   text(score-1, width*0.5, height*0.9);
